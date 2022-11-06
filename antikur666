@@ -1,3 +1,13 @@
+local function FindName(name)
+    for _, v in next, game.Players:GetPlayers() do
+        local subbedname = string.sub(v.Name:lower(), 1, string.len(name))
+        
+        if (subbedname == name) then
+            print ('Found Player Name: ' .. v.Name)
+            return v
+        end
+    end
+end
 
 local plr = game:GetService('Players').LocalPlayer
 local runS = game:GetService('RunService')
@@ -769,24 +779,13 @@ function lib:NewTab(name, desc)
 	   Box.PlaceholderColor3 = Color3.fromRGB(105,100,100)
 	   Box.PlaceholderText = placeholdertext
 	   Box.Text = ""
-	   local function FindName(name)
-    for _, v in next, game.Players:GetPlayers() do
-        local subbedname = string.sub(v.Name:lower(), 1, string.len(name))
-        
-        if (subbedname == name) then
-            print ('Found Player Name: ' .. v.Name)
-            return v
-        end
-    end
-end
 
-Box.Text = FindName(Box.Text)
 	   local corner = Instance.new("UICorner",Box)
 	   corner.CornerRadius = UDim.new(0,8)
 	   
 	   local callback = callback or function() end
 	   Box.FocusLost:Connect(function()
-	       callback(Box.Text)
+	       callback(FindName(Box.Text))
         end)
     end
     return tabFuncs
