@@ -1,14 +1,3 @@
-local function FindName(name)
-    for _, v in next, game.Players:GetPlayers() do
-        local subbedname = string.sub(v.Name:lower(), 1, string.len(name))
-        
-        if (subbedname == name) then
-            print ('Found Player Name: ' .. v.Name)
-            return v
-        end
-    end
-end
-
 local plr = game:GetService('Players').LocalPlayer
 local runS = game:GetService('RunService')
 local pgui = plr.PlayerGui
@@ -785,7 +774,7 @@ function lib:NewTab(name, desc)
 	   
 	   local callback = callback or function() end
 	   Box.FocusLost:Connect(function()
-	       callback(FindName(Box.Text))
+	       callback(Box.Text)
         end)
     end
     return tabFuncs
